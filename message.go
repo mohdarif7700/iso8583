@@ -138,7 +138,7 @@ func (m *Message) Pack() ([]byte, error) {
 	for _, id := range ids {
 		// indexes 0 and 1 are for mti and bitmap
 		// regular field number startd from index 2
-		if id < 2 {
+		if id < 1 {
 			continue
 		}
 		m.Bitmap().Set(id)
