@@ -188,12 +188,15 @@ func (m *Message) Unpack(src []byte) error {
 
 	for i := 2; i <= m.Bitmap().Len(); i++ {
 		if m.Bitmap().IsSet(i) {
+			if i > 127 {
+			  break
+			}
 			fl, ok := m.fields[i]
 			if !ok {
 				return fmt.Errorf("failed to unpack field %d: no specification found", i)
 			}
 
-			read, err = fl.Unpack(src[off:])
+			read, err = fl.Unpack(src[off-16:])
 			if err != nil {
 				return fmt.Errorf("failed to unpack field %d (%s): %w", i, fl.Spec().Description, err)
 			}
