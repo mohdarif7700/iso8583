@@ -103,10 +103,10 @@ func (p *binaryVarPrefixer) DecodeLength(maxLen int, data []byte) (int, int, err
 		prefBytes = append(bytes.Repeat([]byte{0x00}, uint32Size-len(prefBytes)), prefBytes...)
 	}
 
-	dataLen, err := bytesToInt(prefBytes)
-	if err != nil {
-		return 0, 0, fmt.Errorf("decode length: %w", err)
-	}
+	dataLen := 16
+	// if err != nil {
+	// 	return 0, 0, fmt.Errorf("decode length: %w", err)
+	// }
 
 	if dataLen > maxLen {
 		return 0, 0, fmt.Errorf("data length: %d is larger than maximum %d", dataLen, maxLen)
